@@ -116,7 +116,7 @@ ini_set('display_errors', 1);
 
   <div class="blog-post">
             <h2 class="blog-post-title"><?php echo($singlePost['title']) ?></h2>
-            <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?>&nbsp<a href="#"><?php echo($singlePost['user_id']) ?></a></p>
+            <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?>&nbsp<a href="#"><?php echo($singlePost['first_name']) ?></a></p>
 
             <p><?php echo($singlePost['body']) ?></p>
             
@@ -152,7 +152,7 @@ Comment: <textarea name="comment" rows="5" cols="40"></textarea>
                     echo('post_id nije prosledjen kroz $_GET');
                 }
             ?>
-            </div>      
+           
         </div><!-- /.blog-main -->
     </main><!-- /.container -->
     <?php include('../glavnica/footer.php'); ?>

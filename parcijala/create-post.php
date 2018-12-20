@@ -20,22 +20,59 @@
 </head>
 
 <body>
-<h5>Kreirajte post:</h5>
+<h5>Create post:</h5>
 
 <form method="POST" name="myForm" onsubmit="return validateForm()" action="../parcijala/create.php">  
 
 
-Autor: <input type="text" name="author">
+Title: <input type="text" name="title">
 <!-- <span class="error" style = "color: #FF0000"> *required field <?php echo $authorError;?></span> -->
 <br><br>
-Comment: <textarea name="comment" rows="5" cols="40"></textarea>
+Body: <textarea name="body" rows="5" cols="100"></textarea>
 <!-- <span class="error" style = "color: #FF0000"> *required field <?php echo $textError;?></span>  -->
 <br><br> 
+Author first Name: <input type="text" name="authorFN">
+<br><br> 
+Author last Name: <input type="text" name="authorLN">
+<br><br> 
+Created at:  <input type="date" name="created_at">
+<br><br>
 <input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
 <input type="submit" name="submit" value="Submit"> 
 <br><br> 
 
 </form>
+
+<script>
+    function validateForm() {
+
+    var t = document.forms["myForm"]["title"].value;
+    if (t == "") {
+    alert("Title section must be filled out");
+    return false;
+  }
+    var z = document.forms["myForm"]["body"].value;
+    if (z == "") {
+    alert("Body section must be filled out");
+    return false;
+  }
+    var x = document.forms["myForm"]["author"].value;
+    if (x == "") {
+    alert("Author cant be blank");
+    return false;
+  }
+
+    var c = document.forms["myForm"]["created_at"].value;
+    if (c == "") {
+    alert("You must choose the date");
+    return false;
+  }
+
+}
+</script>
+
+
+
 
 </body>
 </html>

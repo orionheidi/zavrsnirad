@@ -81,9 +81,13 @@
             
        </aside><!-- /.blog-sidebar -->
 
+       </div>
+
     </div><!-- /.row -->
 
     </main><!-- /.container -->
         <?php include('../glavnica/footer.php'); ?>
+
+        
         </body>
 </html>

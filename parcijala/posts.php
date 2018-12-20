@@ -69,18 +69,22 @@
 
             ?>
 
+
             <?php
                 foreach ($posts as $post) {
+                   
             ?>
 
         <div class="blog-post">
             <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
-            <p class="blog-post-meta"><?php echo($post['created_at']) ?>&nbsp<a href="#"><?php echo($post['user_id']) ?></a></p>
+            <p class="blog-post-meta"><?php echo($post['created_at']); ?>&nbsp
+           
+            <a href="#"><?php echo($post['first_name']); ?><?php echo " "; ?><?php echo($post['last_name']); ?></a></p>
+         
 
             <p><?php echo($post['body']) ?></p>
             
         </div><!-- /.blog-post -->
-
 
         <?php
                 }
@@ -92,10 +96,10 @@
         <?php
         include ('../glavnica/sidebar.php');
                 ?>
-    
 
-</div><!-- /.row -->
+                
+    </div>
 
-</main><!-- /.container -->
+
     </body>
 </html>
