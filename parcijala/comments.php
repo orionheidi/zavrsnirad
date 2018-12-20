@@ -41,77 +41,72 @@ ini_set('display_errors', 1);
 
 <body>
 
+    <div class="comments">
+        <h3>Comments</h3>
+            <button id ='menu-button'>Hidde Comments</button>
 
-<div class="comments">
-                            <h3>Comments</h3>
-                            <button id ='menu-button'>Hidde Comments</button>
+        <!-- zameniti testne komentare sa pravim komentarima koji pripadaju blog post-u iz baze -->
+        <?php
 
-                            <!-- zameniti testne komentare sa pravim komentarima koji pripadaju blog post-u iz baze -->
-                            <?php
+        $sqlComments =
+            "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
 
-                            $sqlComments =
-                                "SELECT * FROM comments WHERE comments.post_id = {$_GET['post_id']}";
+        $statement = $connection->prepare($sqlComments);
 
-                            $statement = $connection->prepare($sqlComments);
+        // izvrsavamo upit
+        $statement->execute();
 
-                            // izvrsavamo upit
-                            $statement->execute();
+        // zelimo da se rezultat vrati kao asocijativni niz.
+        // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-                            // zelimo da se rezultat vrati kao asocijativni niz.
-                            // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
-                            $statement->setFetchMode(PDO::FETCH_ASSOC);
+        // punimo promenjivu sa rezultatom upita
+        $comments = $statement->fetchAll();
 
-                            // punimo promenjivu sa rezultatom upita
-                            $comments = $statement->fetchAll();
+        // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+            // echo '<pre>';
+            // var_dump($comments );
+            // echo '</pre>';
 
-                            // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
-                                // echo '<pre>';
-                                // var_dump($comments );
-                                // echo '</pre>';
+        foreach ($comments as $comment) {
 
-                                foreach ($comments as $comment) {
-                            ?>
-                                    <div id ="single-comment">
-                                    <ul id='menu'>
-                                    <br>
-                                        <li>posted by: <strong><?php echo $comment['author'] ?> </strong></li>
-                                        <li> <?php echo $comment['text'] ?> </li>
-                                        <form action='../parcijala/delete-comment.php?id="<?php echo $comment['id']; ?>"' method="post">
-                                        <input type="hidden" name="id" value="<?php echo $comment['id']; ?>">
-                                        <input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
-                                        <br>
-                                        <input type="submit" class="btn btn-danger" name="submit" value="Delete">
-                                        </form>
-                                        <hr>
-                                    <ul>
-                                    </div>
-                                <?php } ?>
+        ?>
+            <div id ="single-comment">
+                <ul id='menu'>
+                    <br>
+                    <li>posted by: <strong><?php echo $comment['author'] ?> </strong></li>
+                    <li> <?php echo $comment['text'] ?> </li>
+                        
+                    <form action='../parcijala/delete-comment.php?id="<?php echo $comment['id']; ?>"' method="post">
+                    <input type="hidden" name="id" value="<?php echo $comment['id']; ?>">
+                    <input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
+                    <br>
+                    <input type="submit" class="btn btn-danger" name="submit" value="Delete">
+                    </form>
+                <hr>
+                <ul>
+            </div>
 
-                        <script>
-                     
-                               
-                            var button = document.querySelector('#menu-button');
-                            var menu = document.querySelector('#menu');
-                            button.addEventListener('click', function (event) {
-                                for (var i = 0; i < menu.children.length; i++) {
-                                var n = menu.children[i];
-                                }
+        <?php 
+            } 
+        ?>
 
-                                
-                            if (menu.style.display == "") {
-                                menu.style.display = "none";
-                                button.innerHTML = "Show Menu";
-                            } else {
-                                menu.style.display = "";
-                            button.innerHTML = "Hide Menu";
-                        }
+            <script>
+                 
+                var button = document.querySelector('#menu-button');
+                var menu = document.querySelector('#single-comment');
+                button.addEventListener('click', function (event) {
+             
+                if (menu.style.display == "") {
+                    menu.style.display = "none";
+                    button.innerHTML = "Show Menu";
+                } else {
+                    menu.style.display = "";
+                button.innerHTML = "Hide Menu";
+                }
                     }
-                );
-                        
-                       
-                      
-                        
-                        </script>
-                
+                        );
+            
+            </script>               
 </body>
 </html>

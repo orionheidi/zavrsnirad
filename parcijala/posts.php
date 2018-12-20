@@ -16,6 +16,7 @@
         echo $e->getMessage();
     }
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,7 +27,6 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
    
-
     <title>Vivify Blog</title>
 
     <!-- Bootstrap core CSS -->
@@ -39,67 +39,77 @@
 
 <body>
 
-<?php include('../glavnica/header.php'); ?>
+        <?php include('../glavnica/header.php'); ?>
 
 <main role="main" class="container">
 
-<div class="row">
+    <div class="row">
 
-    <div class="col-sm-8 blog-main">
+        <div class="col-sm-8 blog-main">
 
-    <?php
-                // pripremamo upit
-                $sql1 = "SELECT * FROM posts JOIN users ON users.id = posts.user_id order by created_at DESC";
-                $statement = $connection->prepare($sql1);
+        <?php
+            // pripremamo upit
+            $sql1 = "SELECT posts.id, posts.title, posts.body, posts.created_at, users.first_name, users.last_name FROM posts JOIN users ON users.id = posts.user_id order by created_at DESC";
+            $statement = $connection->prepare($sql1);
 
-                // izvrsavamo upit
-                $statement->execute();
+            // izvrsavamo upit
+            $statement->execute();
 
-                // zelimo da se rezultat vrati kao asocijativni niz.
-                // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
+            // zelimo da se rezultat vrati kao asocijativni niz.
+            // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-                // punimo promenjivu sa rezultatom upita
-                $posts = $statement->fetchAll();
+            // punimo promenjivu sa rezultatom upita
+            $posts = $statement->fetchAll();
 
-                // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
-                    // echo '<pre>';
-                    // var_dump($posts);
-                    // echo '</pre>';
+            // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+                // echo '<pre>';
+                // var_dump($posts);
+                // echo '</pre>';
 
-            ?>
+        ?>
 
-
-            <?php
-                foreach ($posts as $post) {
-                   
-            ?>
+        <?php
+            foreach ($posts as $post) {
+                // var_dump($post);
+        ?>
 
         <div class="blog-post">
+
             <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
+            
             <p class="blog-post-meta"><?php echo($post['created_at']); ?>&nbsp
            
             <a href="#"><?php echo($post['first_name']); ?><?php echo " "; ?><?php echo($post['last_name']); ?></a></p>
          
-
             <p><?php echo($post['body']) ?></p>
             
         </div><!-- /.blog-post -->
 
         <?php
                 }
-            ?>
+        ?>
+
         <nav class="blog-pagination">
             <a class="btn btn-outline-primary" href="#">Older</a>
             <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
         </nav>
+
+        </div><!-- /.blog-main -->
+
         <?php
-        include ('../glavnica/sidebar.php');
-                ?>
-
+            include ('../glavnica/sidebar.php');
+        ?>
                 
-    </div>
+        </div><!-- /.row -->
 
+            </main><!-- /.container -->
+        
+        <?php 
+
+        include('../glavnica/footer.php'); 
+        
+        ?>
 
     </body>
 </html>

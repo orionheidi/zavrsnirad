@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     // ako su mysql username/password i ime baze na vasim racunarima drugaciji
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
@@ -40,20 +41,24 @@ ini_set('display_errors', 1);
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 
-<body>
+<body>  
 
     <?php     
         if (isset($_POST['post_id'])) {
-        $author = $_POST['author'];
-        $text = $_POST['comment'];
+
         $postId = $_POST['post_id'];
 
-        $sql = "INSERT INTO comments (author, text, post_id) VALUES ('$author','$text', '$postId')";
-
-        $connection->exec($sql);
+        $queryX = "DELETE FROM comments WHERE post_id = {$_POST['id']}";
     
-        header('Location:http://localhost:8000/zavrsnirad/parcijala/single-post.php?post_id=' . $postId );
-        }
+        $connection->exec($queryX);
+
+        $query = "DELETE FROM posts WHERE id = {$_POST['id']}";
+
+        $connection->exec($query);
+
+        header('Location:http://localhost:8000/zavrsnirad/glavnica/index.php?post_id=' . $postId);
+   
+    }
 
     ?>
 

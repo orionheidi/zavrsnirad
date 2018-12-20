@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     // ako su mysql username/password i ime baze na vasim racunarima drugaciji
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
@@ -29,7 +30,6 @@ ini_set('display_errors', 1);
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
    
-
     <title>Vivify Blog</title>
 
     <!-- Bootstrap core CSS -->
@@ -38,29 +38,27 @@ ini_set('display_errors', 1);
     <!-- Custom styles for this template -->
     <link href="../styles/blog.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
+
 </head>
 
 <body>
-<h2>Delete comment </h2>
 
+    <?php  
 
-<?php     
- if (isset($_POST['id'])) {
-    $commentId = $_POST['id'];
-    $postId = $_POST['post_id'];
+        if (isset($_POST['id'])) {
 
-    
-    $query = "DELETE FROM comments WHERE id = {$_POST['id']}";
+        $commentId = $_POST['id'];
+        $postId = $_POST['post_id'];
 
+        $query = "DELETE FROM comments WHERE id = {$_POST['id']}";
 
-    $connection->exec($query);
-
-    
-    header('Location:http://localhost:8000/zavrsnirad/parcijala/single-post.php?post_id=' . $postId);
+        $connection->exec($query);
+        
+        header('Location:http://localhost:8000/zavrsnirad/parcijala/single-post.php?post_id=' . $postId);
    
- }
+        }
 
-?>
+    ?>
 
 </body>
 </html>

@@ -40,42 +40,24 @@ ini_set('display_errors', 1);
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 
-<body>
-<h2>Latyest Posts </h2>
+    <body>
 
+    <?php     
+        if (isset($_POST['post_id'])) {
 
-<?php     
-  if (isset($_POST['post_id'])) {
-    $title = $_POST['title'];
-    $body = $_POST['body'];
-    $authorFN = $_POST['authorFN'];
-    $authorLN = $_POST['authorLN'];
-    $createdAt = $_POST['created_at'];
+        $title = $_POST['title'];
+        $body = $_POST['body'];
+        $authorId = $_POST['author_id'];
+        $createdAt = $_POST['created_at'];
 
-    $sqlUser = "INSERT INTO users (first_name,last_name) VALUES ('$authorFN','$authorLN')";
+        $sql = "INSERT INTO posts (title,body,user_id,created_at) VALUES ('$title','$body','$authorId','$createdAt')";
 
-    $connection->exec($sqlUser);
+        $connection->exec($sql);
+    
+        header('Location:http://localhost:8000/zavrsnirad/parcijala/posts.php?post_id=' . $postId );
+    }    
 
-  foreach($users as $user){
-
-    $sql = "INSERT INTO posts (title,body,user_id,created_at) VALUES ('$title','$body','$user['id']','$createdAt')";
-  }
-    $connection->exec($sql);
-  
-    header('Location:http://localhost:8000/zavrsnirad/parcijala/posts.php?post_id=' . $postId );
-  }
-
-//   foreach($users as $user){
-//     $sql;
-//     if($user['first_name'] === $authorFN && $user['last_name'] === $authorLN ){
-//       $userId = $user['id'];
-//       $sql = "INSERT INTO posts (title,body,user_id,created_at) VALUES ('$title','$body','$userId','$createdAt')";
-
-//     }
-//     return $sql; 
-//   }
-
-?>
+    ?>
 
 </body>
 </html>

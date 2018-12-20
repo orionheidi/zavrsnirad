@@ -1,41 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// $author = $text =  '';
-// if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-//     if(!empty($_POST['author'])){
-//         $author = $_POST['author'];
-//     }
-
-//     if(!empty($_POST['comment'])){
-//         $text = $_POST['comment'];
-//     }  
-
-// }
-
-//     $authorError = $textError = '';
-
-//     if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-//     if(empty($_POST["author"])){
-//         $authorError = 'Author error, name required!';
-//     }
-
-//     else if(!preg_match("/^[a-zA-Z ]*$/",$author)) {
-//         $authorError = "Only letters and white space allowed";
-//     }
-
-//     if(empty($_POST["comment"])){
-//      $textError = ' Comment is required!';
-//     } 
-
-//     }
-?>
-
-
-<?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
     // ako su mysql username/password i ime baze na vasim racunarima drugaciji
     // obavezno ih ovde zamenite
@@ -55,8 +20,6 @@ ini_set('display_errors', 1);
     }
 ?>
 
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,27 +38,26 @@ ini_set('display_errors', 1);
     <!-- Custom styles for this template -->
     <link href="../styles/blog.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
+
 </head>
 
 <body>
 
-<?php include('../glavnica/header.php'); ?>
+    <?php include('../glavnica/header.php'); ?>
 
-<main role="main" class="container">
+        <main role="main" class="container">
 
-<div class="row">
+            <div class="row">
 
-    <div class="col-sm-8 blog-main">
+                <div class="col-sm-8 blog-main">
 
     <?php
     
-
     if (isset($_GET['post_id'])) {
 
     // pripremamo upit
-    $sql = "SELECT id, title, body, user_id , created_at FROM posts WHERE id = {$_GET['post_id']}";
+    $sql = "SELECT posts.id, posts.title, posts.body, posts.created_at, users.first_name, users.last_name FROM posts JOIN users ON users.id = posts.user_id  WHERE posts.id = {$_GET['post_id']}";
     $statement2 = $connection->prepare($sql);
-
 
     // izvrsavamo upit
     $statement2->execute();
@@ -112,66 +74,96 @@ ini_set('display_errors', 1);
         // var_dump($singlePost);
         // echo '</pre>';
 
-?>
+    ?>
 
-  <div class="blog-post">
+        <div class="blog-post">
+
             <h2 class="blog-post-title"><?php echo($singlePost['title']) ?></h2>
+
             <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?>&nbsp<a href="#"><?php echo($singlePost['first_name']) ?></a></p>
 
             <p><?php echo($singlePost['body']) ?></p>
+
+            <form action='../parcijala/delete-post.php?id="<?php echo $singlePost['id']; ?>"' method="post">
+            <input type="hidden" name="id" value="<?php echo $singlePost['id']; ?>">
+            <input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
+            <br>
+            <input type="submit" onclick="myFunction()" class="btn btn-danger" name="submit" value="Delete">
+            </form>
+
+
+        <h5>Ovde mozete uneti vas komentar:</h5>
+
+            <form method="POST" name="myForm" onsubmit="return validateForm()" action="../parcijala/create-comment.php">  
+
+            Autor: <input type="text" name="author">
+            <br><br>
+            Comment: <textarea name="comment" rows="5" cols="40"></textarea>
+            <br><br> 
+            <input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
+            <input type="submit" name="submit" value="Submit"> 
+            <br><br> 
+
+        </form>   
+        
+            </div>
             
-        </div><!-- /.blog-post -->
-
-<h5>Ovde mozete uneti vas komentar:</h5>
-
-<form method="POST" name="myForm" onsubmit="return validateForm()" action="../parcijala/create-comment.php">  
-
-
-Autor: <input type="text" name="author">
-<!-- <span class="error" style = "color: #FF0000"> *required field <?php echo $authorError;?></span> -->
-<br><br>
-Comment: <textarea name="comment" rows="5" cols="40"></textarea>
-<!-- <span class="error" style = "color: #FF0000"> *required field <?php echo $textError;?></span>  -->
-<br><br> 
-<input type="number" hidden name="post_id" value="<?php echo($_GET['post_id']) ?>">
-<input type="submit" name="submit" value="Submit"> 
-<br><br> 
-
-</form>
-
-   
-
+            </div>
+     
     <?php
         include ('../parcijala/comments.php');
     ?>
 
+            </div>
+            </div>
+      
+    <?php
+        }   else {
+            echo('post_id nije prosledjen kroz $_GET');
+        }
+    ?>
 
- <?php
-               } else {
-              
-                    echo('post_id nije prosledjen kroz $_GET');
-                }
-            ?>
+    <?php
+        include ('../glavnica/sidebar.php');
+    ?>
+
+    </main><!-- /.container -->   
+
+    <?php 
+
+        include('../glavnica/footer.php'); 
+
+    ?>
+
+        <script>
+            function validateForm() {
+            var x = document.forms["myForm"]["author"].value;
+            if (x == "") {
+            alert("Author cant be blank");
+            return false;
+            }
+
+            var x = document.forms["myForm"]["comment"].value;
+            if (x == "") {
+            alert("Comment section must be filled out");
+            return false;
+            }
+            }
+        </script>
+
+        <script>
+            function myFunction() {
            
-        </div><!-- /.blog-main -->
-    </main><!-- /.container -->
-    <?php include('../glavnica/footer.php'); ?>
 
-    <script>
-    function validateForm() {
-    var x = document.forms["myForm"]["author"].value;
-    if (x == "") {
-    alert("Author cant be blank");
-    return false;
-  }
+           var answer = confirm("Do you really want to delete this post??")
+            if (answer) {
+            //some code
+            }
+            else {
+            //some code
+            }
+            }
+        </script>
 
-    var x = document.forms["myForm"]["comment"].value;
-    if (x == "") {
-    alert("Comment section must be filled out");
-    return false;
-  }
-
-}
-</script>
     </body>
 </html>

@@ -3,7 +3,7 @@
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "vivify";
+    $password = "vivifz";
     $dbname = "blog";
 
     try {
@@ -17,6 +17,7 @@
     }
 
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,7 +27,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
-
 
     <title>Vivify Blog</title>
 
@@ -41,53 +41,49 @@
 <body>
 
 <aside class="col-sm-3 ml-sm-auto blog-sidebar">
+
     <div class="sidebar-module sidebar-module-inset">
+
                 <h4>Latest Post</h4>
     </div>
+
     <?php
-                // pripremamo upit
-                $sql1 = "SELECT * FROM posts order by created_at DESC LIMIT 5";
-                $statement = $connection->prepare($sql1);
+        // pripremamo upit
+        $sql1 = "SELECT * FROM posts order by created_at DESC LIMIT 5";
+        $statement = $connection->prepare($sql1);
 
-                // izvrsavamo upit
-                $statement->execute();
+        // izvrsavamo upit
+        $statement->execute();
 
-                // zelimo da se rezultat vrati kao asocijativni niz.
-                // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
+        // zelimo da se rezultat vrati kao asocijativni niz.
+        // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-                // punimo promenjivu sa rezultatom upita
-                $posts = $statement->fetchAll();
+        // punimo promenjivu sa rezultatom upita
+        $posts = $statement->fetchAll();
 
-                // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
-                    // echo '<pre>';
-                    // var_dump($posts);
-                    // echo '</pre>';
+        // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+            // echo '<pre>';
+            // var_dump($posts);
+            // echo '</pre>';
 
-            ?>
+    ?>
 
-            <?php
-                foreach ($posts as $post) {
-            ?>
+    <?php
+        foreach ($posts as $post) {
+    ?>
 
-        <div class="blog-post2">
-            <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
+    <div class="blog-post2">
+
+        <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
             
-        </div><!-- /.blog-post2 -->
+    </div><!-- /.blog-post2 -->
 
-        <?php
-                }
-            ?>     
-            
-       </aside><!-- /.blog-sidebar -->
-
-       </div>
-
-    </div><!-- /.row -->
-
-    </main><!-- /.container -->
-        <?php include('../glavnica/footer.php'); ?>
-
+    <?php
+        }
+    ?>      
+    
+    </aside><!-- /.blog-sidebar -->
         
-        </body>
+    </body>
 </html>

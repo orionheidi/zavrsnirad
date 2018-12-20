@@ -20,6 +20,7 @@
 </head>
 
 <body>
+  
 <h5>Create post:</h5>
 
 <form method="POST" name="myForm" onsubmit="return validateForm()" action="../parcijala/create.php">  
@@ -31,9 +32,7 @@ Title: <input type="text" name="title">
 Body: <textarea name="body" rows="5" cols="100"></textarea>
 <!-- <span class="error" style = "color: #FF0000"> *required field <?php echo $textError;?></span>  -->
 <br><br> 
-Author first Name: <input type="text" name="authorFN">
-<br><br> 
-Author last Name: <input type="text" name="authorLN">
+Author Id: <input type="text" name="author_id">
 <br><br> 
 Created at:  <input type="date" name="created_at">
 <br><br>
