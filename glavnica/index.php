@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     include ('../parcijala/posts.php');
     

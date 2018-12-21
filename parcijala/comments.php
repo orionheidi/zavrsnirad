@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "vivifz";
+    $password = "vivify";
     $dbname = "blog";
 
     try {
@@ -43,7 +43,9 @@ ini_set('display_errors', 1);
 
     <div class="comments">
         <h3>Comments</h3>
-            <button id ='menu-button'>Hidde Comments</button>
+        <button id ='menu-button' class="btn btn-dark">Hidde Comments</button>
+        
+        <div id ="single-comment">
 
         <!-- zameniti testne komentare sa pravim komentarima koji pripadaju blog post-u iz baze -->
         <?php
@@ -71,7 +73,6 @@ ini_set('display_errors', 1);
         foreach ($comments as $comment) {
 
         ?>
-            <div id ="single-comment">
                 <ul id='menu'>
                     <br>
                     <li>posted by: <strong><?php echo $comment['author'] ?> </strong></li>
@@ -83,14 +84,15 @@ ini_set('display_errors', 1);
                     <br>
                     <input type="submit" class="btn btn-danger" name="submit" value="Delete">
                     </form>
+
                 <hr>
-                <ul>
-            </div>
+                </ul>
 
         <?php 
             } 
         ?>
-
+            </div>
+                </div>
             <script>
                  
                 var button = document.querySelector('#menu-button');
@@ -99,10 +101,10 @@ ini_set('display_errors', 1);
              
                 if (menu.style.display == "") {
                     menu.style.display = "none";
-                    button.innerHTML = "Show Menu";
+                    button.innerHTML = "Show Comments";
                 } else {
                     menu.style.display = "";
-                button.innerHTML = "Hide Menu";
+                button.innerHTML = "Hide Comments";
                 }
                     }
                         );

@@ -1,11 +1,11 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
     // ako su mysql username/password i ime baze na vasim racunarima drugaciji
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "vivifz";
+    $password = "vivify";
     $dbname = "blog";
 
     try {

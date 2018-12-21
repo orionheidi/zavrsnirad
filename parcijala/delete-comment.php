@@ -6,7 +6,7 @@
     // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
     $username = "root";
-    $password = "vivifz";
+    $password = "vivify";
     $dbname = "blog";
 
     try {
