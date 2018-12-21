@@ -75,7 +75,7 @@
 
     <div class="blog-post2">
 
-        <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
+        <h2 class="blog-post-title"><a href="../parcijala/single-post.php?post_id=<?php echo($post['id']) ?>" class='a'><?php echo($post['title']) ?></a></h2>
             
     </div><!-- /.blog-post2 -->
 
