@@ -1,7 +1,7 @@
 drop database blog;
 create database blog;
 use blog;
-create table posts(id int not null unique auto_increment, title varchar(60) not null, body varchar(1000), user_id int not null unique,created_at date,primary key (id), foreign key (user_id) references users (id));
+create table posts(id int not null unique auto_increment, title varchar(60) not null, body varchar(1000), user_id int not null,created_at date,primary key (id), foreign key (user_id) references users (id));
 describe posts;
  
 insert into posts(title,body,user_id,created_at) values ('Trkaci prerije','Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industryaker including versions of Lorem Ipsum.Lorem Ipsum has been the industryaker including versions of Lorem Ipsum. Lorem Ipsum has been the industryaker including versions of Lorem Ipsum.Lorem Ipsum has been the industryaker including versions of Lorem Ipsum.',1, '2018-12-17');
